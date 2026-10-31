@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged paragraphs in NYC press releases</title>
+<style>
+  :root {
+    --bg: #fafaf7; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #e4e2dc;
+    --ai: #f6d36b; --ai-edge: #b7891a; --assist: #bfe3f2; --assist-edge: #2a7ea6;
+    --chip-ai: #8a4b00; --chip-human: #2f6b3f; --chip-mixed: #5a5a55;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161614; --panel: #1f1f1c; --ink: #ecebe6; --muted: #9b9a93; --line: #34342f;
+      --ai: #5b4a16; --ai-edge: #e0b64a; --assist: #1d3b4a; --assist-edge: #6fb6d8;
+      --chip-ai: #f3c96a; --chip-human: #8ed29f; --chip-mixed: #b9b8b0;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161614; --panel: #1f1f1c; --ink: #ecebe6; --muted: #9b9a93; --line: #34342f;
+    --ai: #5b4a16; --ai-edge: #e0b64a; --assist: #1d3b4a; --assist-edge: #6fb6d8;
+    --chip-ai: #f3c96a; --chip-human: #8ed29f; --chip-mixed: #b9b8b0;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 18px; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; min-width: 120px; }
+  .stat b { display: block; font-size: 20px; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+  select, input[type="search"] { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
+  input[type="search"] { flex: 1; min-width: 180px; }
+  label.check { color: var(--muted); font-size: 14px; display: inline-flex; gap: 4px; align-items: center; }
+  .list { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 12px 14px; border-top: 1px solid var(--line); cursor: pointer; }
+  .row:first-child { border-top: 0; }
+  .row:hover, .row:focus { background: var(--bg); outline: none; }
+  .row .title { font-weight: 600; }
+  .row .meta { color: var(--muted); font-size: 13px; }
+  .right { text-align: right; font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .chip { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; margin-left: 4px; }
+  .chip.ai { color: var(--chip-ai); }
+  .chip.human { color: var(--chip-human); }
+  .chip.mixed { color: var(--chip-mixed); }
+  .count { font-weight: 600; color: var(--ink); }
+  .empty { padding: 20px; color: var(--muted); }
+  /* Detail view */
+  #detail { display: none; }
+  #detail.open { display: block; }
+  .back { background: none; border: 0; color: var(--assist-edge); cursor: pointer; font: inherit; padding: 0; margin-bottom: 12px; }
+  .doc { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; }
+  .doc h2 { font-size: 19px; margin: 0 0 6px; line-height: 1.3; }
+  .doc .meta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .doc .meta a { color: var(--assist-edge); }
+  .para { margin: 0 0 12px; padding: 6px 10px; border-left: 3px solid transparent; border-radius: 4px; }
+  .para.flag-ai { background: var(--ai); border-left-color: var(--ai-edge); }
+  .para.flag-assisted { background: var(--assist); border-left-color: var(--assist-edge); }
+  .para .tag { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 3px; color: var(--ink); }
+  .toggle { margin-bottom: 12px; }
+  .foot { color: var(--muted); font-size: 13px; margin-top: 28px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin: 0 0 14px; }
+  .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 4px; border-left: 3px solid; }
+  .swatch.ai { background: var(--ai); border-color: var(--ai-edge); }
+  .swatch.assisted { background: var(--assist); border-color: var(--assist-edge); }
+  @media (max-width: 600px) { .row { grid-template-columns: 1fr; } .right { text-align: left; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Flagged paragraphs in NYC press releases</h1>
+  <p class="sub">Each release, with the paragraphs the detector marked.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="legend">
+    <span><span class="swatch ai"></span>AI-Generated passage</span>
+    <span><span class="swatch assisted"></span>AI-Assisted passage</span>
+  </div>
+
+  <div id="listView">
+    <div class="controls">
+      <input type="search" id="search" placeholder="Search titles">
+      <select id="agency">
+        <option value="">All agencies</option>
+        <option value="Mayor's Office">Mayor's Office</option>
+        <option value="DOT">DOT</option>
+        <option value="DCLA">DCLA</option>
+      </select>
+      <select id="period">
+        <option value="">All years</option>
+        <option value="2026">2026</option>
+        <option value="2022">2022 control</option>
+      </select>
+      <label class="check"><input type="checkbox" id="flaggedOnly"> Only with flagged paragraphs</label>
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <div id="detail">
+    <button class="back" id="back">&larr; All releases</button>
+    <div class="doc" id="doc"></div>
+    <p class="toggle"><label class="check"><input type="checkbox" id="onlyFlagged"> Show only flagged paragraphs</label></p>
+  </div>
+
+  <p class="foot">Detector output only. A flag is not proof of who wrote a passage. Pangram classifies text and can't identify authors. Source: nyc.gov press releases.</p>
+</main>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  var releases = window.RELEASES || [];
+  var listEl = document.getElementById("list");
+  var detailEl = document.getElementById("detail");
+  var docEl = document.getElementById("doc");
+  var onlyFlagged = document.getElementById("onlyFlagged");
+  var current = null;
+
+  function el(tag, cls, text) {
+    var node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined && text !== null) node.textContent = text;
+    return node;
+  }
+
+  function headlineChip(headline) {
+    var h = headline || "";
+    var cls = h.indexOf("AI") !== -1 && h.indexOf("Human") === -1 ? "ai" : (h.indexOf("Human") !== -1 && h.indexOf("Mostly") === -1 ? "human" : "mixed");
+    return el("span", "chip " + cls, h || "No label");
+  }
+
+  function pct(x) { return Math.round(x * 100) + "%"; }
+
+  function renderStats() {
+    var flaggedReleases = releases.filter(function (r) { return r.flagged_paragraphs > 0; }).length;
+    var flaggedParas = releases.reduce(function (n, r) { return n + r.flagged_paragraphs; }, 0);
+    var stats = document.getElementById("stats");
+    stats.textContent = "";
+    [[releases.length, "releases checked"], [flaggedReleases, "with a flagged paragraph"], [flaggedParas, "flagged paragraphs"]].forEach(function (s) {
+      var box = el("div", "stat");
+      box.appendChild(el("b", null, String(s[0])));
+      box.appendChild(el("span", null, s[1]));
+      stats.appendChild(box);
+    });
+  }
+
+  function visibleReleases() {
+    var q = document.getElementById("search").value.trim().toLowerCase();
+    var agency = document.getElementById("agency").value;
+    var period = document.getElementById("period").value;
+    var flaggedOnly = document.getElementById("flaggedOnly").checked;
+    return releases.filter(function (r) {
+      if (q && r.title.toLowerCase().indexOf(q) === -1) return false;
+      if (agency && r.agency !== agency) return false;
+      if (period && (r.published || "").slice(0, 4) !== period) return false;
+      if (flaggedOnly && r.flagged_paragraphs === 0) return false;
+      return true;
+    });
+  }
+
+  function renderList() {
+    listEl.textContent = "";
+    var items = visibleReleases();
+    if (!items.length) {
+      listEl.appendChild(el("div", "empty", "No releases match."));
+      return;
+    }
+    items.forEach(function (r) {
+      var row = el("div", "row");
+      row.tabIndex = 0;
+      var left = el("div");
+      left.appendChild(el("div", "title", r.title));
+      left.appendChild(el("div", "meta", r.agency + " · " + (r.published || "no date") + " · " + r.words + " words"));
+      var right = el("div", "right");
+      right.appendChild(el("span", "count", r.flagged_paragraphs + " flagged"));
+      right.appendChild(headlineChip(r.headline));
+      row.appendChild(left);
+      row.appendChild(right);
+      row.addEventListener("click", function () { openRelease(r); });
+      row.addEventListener("keydown", function (e) { if (e.key === "Enter") openRelease(r); });
+      listEl.appendChild(row);
+    });
+  }
+
+  function renderDetail() {
+    docEl.textContent = "";
+    var r = current;
+    docEl.appendChild(el("h2", null, r.title));
+    var meta = el("div", "meta", r.agency + " · " + (r.published || "no date") + " · " + r.words + " words · " + r.flagged_paragraphs + " flagged paragraph" + (r.flagged_paragraphs === 1 ? "" : "s") + " · ");
+    var link = el("a", null, "original release");
+    link.href = r.url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    meta.appendChild(link);
+    docEl.appendChild(meta);
+    docEl.appendChild(headlineChip(r.headline));
+
+    var showOnly = onlyFlagged.checked;
+    r.paragraphs.forEach(function (p) {
+      if (showOnly && !p.flag) return;
+      var cls = "para";
+      if (p.flag === "AI-Generated") cls += " flag-ai";
+      if (p.flag === "AI-Assisted") cls += " flag-assisted";
+      var block = el("p", cls);
+      if (p.flag) {
+        block.appendChild(el("span", "tag", p.flag + " · " + pct(p.score)));
+        block.appendChild(el("br"));
+      }
+      block.appendChild(document.createTextNode(p.text));
+      docEl.appendChild(block);
+    });
+  }
+
+  function openRelease(r) {
+    current = r;
+    onlyFlagged.checked = r.flagged_paragraphs > 0;
+    document.getElementById("listView").style.display = "none";
+    detailEl.classList.add("open");
+    renderDetail();
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("back").addEventListener("click", function () {
+    detailEl.classList.remove("open");
+    document.getElementById("listView").style.display = "";
+    renderList();
+  });
+  onlyFlagged.addEventListener("change", renderDetail);
+  ["search", "agency", "period", "flaggedOnly"].forEach(function (id) {
+    var node = document.getElementById(id);
+    node.addEventListener(node.tagName === "INPUT" && node.type === "search" ? "input" : "change", renderList);
+  });
+
+  renderStats();
+  renderList();
+})();
+</script>
+</body>
+</html>
