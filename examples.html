@@ -129,6 +129,38 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
 .bz-detail blockquote { display:grid; gap:6px; }
 .bz-detail blockquote.q22 { background:color-mix(in srgb, var(--y22) 18%, var(--surface)); box-shadow:inset 3px 0 0 var(--y22); }
 .bz-detail cite { font:13px/1.4 var(--body); font-style:normal; }
+/* Document-style marks */
+:root { --paper:#ffffff; --paper-edge:#b9c2cb; --ink-line:#c9d0d7; --hl:#f6c343; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper:#2a3038; --paper-edge:#55606b; --ink-line:#4a535e; --hl:#e8b931; } }
+:root[data-theme="dark"] { --paper:#2a3038; --paper-edge:#55606b; --ink-line:#4a535e; --hl:#e8b931; }
+.chart .sheet, .chart .page-link { transform-box:fill-box; transform-origin:center; }
+.chart .sheet-paper, .chart .page-paper { fill:var(--paper); stroke:var(--paper-edge); stroke-width:1; }
+.chart .sheet-fold { fill:none; stroke:var(--paper-edge); stroke-width:1; }
+.chart .sheet-text { stroke:var(--ink-line); stroke-width:1.2; stroke-linecap:round; }
+.chart .is-flag .sheet-paper { stroke:var(--flag); stroke-width:1.4; }
+.chart .is-flag .sheet-text { stroke:color-mix(in srgb, var(--fg) 45%, transparent); }
+.chart .is-caveat .sheet-paper { stroke-dasharray:2 1.5; }
+.chart .sheet-hl { fill:var(--flag); opacity:.55; transform-box:fill-box; transform-origin:left center; }
+.chart .sheet-link { cursor:pointer; }
+.chart .sheet-link:hover .sheet-paper, .chart .sheet-link:focus .sheet-paper { stroke:var(--fg); stroke-width:1.6; }
+.chart .sheet-link:focus { outline:none; }
+.chart .page-head { fill:var(--ink-line); }
+.chart .page-text { stroke:var(--ink-line); stroke-width:1.6; stroke-linecap:round; }
+.chart .hl { transform-box:fill-box; transform-origin:left center; mix-blend-mode:normal; }
+.chart .hl.seg-h2 { fill:var(--flag); opacity:.8; }
+.chart .hl.seg-m2 { fill:var(--flag); opacity:.5; }
+.chart .hl.seg-l2 { fill:var(--flag); opacity:.28; }
+.chart .page-link { cursor:pointer; }
+.chart .page-link:hover .page-paper, .chart .page-link:focus .page-paper { stroke:var(--fg); stroke-width:1.6; }
+.chart .page-link:focus { outline:none; }
+.chart .page-val { fill:var(--fg); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; }
+.chart .page-sub { fill:var(--muted); font-size:11px; }
+.chart .grow { transform-box:fill-box; transform-origin:bottom; }
+.chart .bz-word { fill:var(--fg); font:500 14px var(--mono); }
+.sw.sheet-sw { background:var(--paper); border:1px solid var(--paper-edge); }
+.sw.sheet-line { background:var(--ink-line); height:3px; border-radius:2px; }
+.bz-detail mark { background:color-mix(in srgb, var(--flag) 35%, transparent); color:inherit; padding:0 2px; border-radius:2px; }
+@media (prefers-reduced-motion: reduce) { .chart * { animation:none !important; transition:none !important; } }
 </style>
 <div class="wrap">
 <header class="top">
@@ -149,27 +181,24 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
 
 <section class="group viz">
   <h2>The numbers</h2>
-  <figure class="chart">
-    <figcaption><strong>Press releases flagged by Pangram</strong><span>Share of each group Pangram labeled as containing AI-generated text. Executive orders, speeches and Spanish translations are excluded.</span></figcaption>
-    <div class="chart-scroll"><svg viewBox="0 0 640 258" role="img" aria-labelledby="c1t"><title id="c1t">Share of press releases flagged by Pangram, by agency and year</title><line class="grid" x1="190.0" x2="190.0" y1="8" y2="232"/><text class="tick" x="190.0" y="250" text-anchor="middle">0%</text><line class="grid" x1="300.0" x2="300.0" y1="8" y2="232"/><text class="tick" x="300.0" y="250" text-anchor="middle">10%</text><line class="grid" x1="410.0" x2="410.0" y1="8" y2="232"/><text class="tick" x="410.0" y="250" text-anchor="middle">20%</text><line class="grid" x1="520.0" x2="520.0" y1="8" y2="232"/><text class="tick" x="520.0" y="250" text-anchor="middle">30%</text><text class="cat" x="178" y="30" text-anchor="end">Mayor&#x27;s Office, 2022</text><text class="sub" x="178" y="47" text-anchor="end">Jan–Nov, before ChatGPT</text><line class="zero" x1="190" x2="190" y1="16" y2="44"/><text class="val" x="198.0" y="35">0%<tspan class="sub" dx="6">0 of 152</tspan></text><rect class="hit" x="0" y="14" width="640" height="48" tabindex="0" data-tip="Mayor&#x27;s Office, 2022: 0 of 152 press releases flagged (0%)"/><text class="cat" x="178" y="86" text-anchor="end">Mayor&#x27;s Office, 2026</text><path class="bar-flag" d="M190,74 h209.7 a4,4 0 0 1 4,4 v16 a4,4 0 0 1 -4,4 h-209.7 z"/><text class="val" x="411.7" y="91">19%<tspan class="sub" dx="6">27 of 139</tspan></text><rect class="hit" x="0" y="70" width="640" height="48" tabindex="0" data-tip="Mayor&#x27;s Office, 2026: 27 of 139 press releases flagged (19%)"/><text class="cat" x="178" y="142" text-anchor="end">DOT, 2026</text><path class="bar-flag" d="M190,130 h113.3 a4,4 0 0 1 4,4 v16 a4,4 0 0 1 -4,4 h-113.3 z"/><text class="val" x="315.3" y="147">11%<tspan class="sub" dx="6">8 of 75</tspan></text><rect class="hit" x="0" y="126" width="640" height="48" tabindex="0" data-tip="DOT, 2026: 8 of 75 press releases flagged (11%)"/><text class="cat" x="178" y="198" text-anchor="end">Cultural Affairs, 2026</text><path class="bar-flag" d="M190,186 h227.6 a4,4 0 0 1 4,4 v16 a4,4 0 0 1 -4,4 h-227.6 z"/><text class="val" x="429.6" y="203">21%<tspan class="sub" dx="6">4 of 19</tspan></text><rect class="hit" x="0" y="182" width="640" height="48" tabindex="0" data-tip="Cultural Affairs, 2026: 4 of 19 press releases flagged (21%)"/><line class="axis" x1="190" x2="190" y1="8" y2="232"/></svg></div>
+  <figure class="chart" id="fig-wall">
+    <figcaption><strong>Every press release, one page each</strong><span>Each sheet is one press release Pangram scored. Highlighted sheets are the ones it flagged as containing AI-generated text. Executive orders, speeches and Spanish translations are left out. Hover over a sheet for its title, or select it to open the release.</span></figcaption>
+    <div class="legend"><span><i class="sw bar-flag"></i>Flagged</span><span><i class="sw sheet-sw"></i>Not flagged</span></div>
+    <div class="chart-scroll"><svg id="pw-svg" role="img" aria-label="Unit chart of press releases, one sheet per release, flagged sheets highlighted"></svg></div>
     <details class="tbl"><summary>Show as table</summary><table><tr><th>Group</th><th>Flagged</th><th>Scored</th><th>Share</th></tr><tr><td>Mayor&#x27;s Office, 2022</td><td>0</td><td>152</td><td>0.0%</td></tr><tr><td>Mayor&#x27;s Office, 2026</td><td>27</td><td>139</td><td>19.4%</td></tr><tr><td>DOT, 2026</td><td>8</td><td>75</td><td>10.7%</td></tr><tr><td>Cultural Affairs, 2026</td><td>4</td><td>19</td><td>21.1%</td></tr></table></details>
   </figure>
-  <figure class="chart">
+  <figure class="chart" id="fig-month">
     <figcaption><strong>Flagged releases appear throughout 2026</strong><span>Mayor's Office press releases scored each month. January–August is a random sample. September and October include every release.</span></figcaption>
     <div class="legend"><span><i class="sw bar-flag"></i>Flagged</span><span><i class="sw bar-rest"></i>Not flagged</span></div>
-    <div class="chart-scroll"><svg viewBox="0 0 640 260" role="img" aria-labelledby="c2t"><title id="c2t">Mayor's Office press releases scored and flagged in 2026, by month</title><line class="grid" x1="36" x2="632" y1="230.0" y2="230.0"/><text class="tick" x="30" y="234.0" text-anchor="end">0</text><line class="grid" x1="36" x2="632" y1="187.2" y2="187.2"/><text class="tick" x="30" y="191.2" text-anchor="end">10</text><line class="grid" x1="36" x2="632" y1="144.4" y2="144.4"/><text class="tick" x="30" y="148.4" text-anchor="end">20</text><line class="grid" x1="36" x2="632" y1="101.6" y2="101.6"/><text class="tick" x="30" y="105.6" text-anchor="end">30</text><line class="grid" x1="36" x2="632" y1="58.8" y2="58.8"/><text class="tick" x="30" y="62.8" text-anchor="end">40</text><line class="grid" x1="36" x2="632" y1="16.0" y2="16.0"/><text class="tick" x="30" y="20.0" text-anchor="end">50</text><path class="bar-rest" d="M48.8,230.0 v-21.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v21.7 z"/><text class="tick" x="65.8" y="250" text-anchor="middle">Jan</text><rect class="hit" x="36.0" y="16" width="59.6" height="214" tabindex="0" data-tip="Jan 2026: 0 of 6 press releases flagged"/><path class="bar-rest" d="M108.4,215.2 v-28.2 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v28.2 z"/><rect class="bar-flag" x="108.4" y="217.2" width="34.0" height="12.8"/><text class="tick" x="125.4" y="250" text-anchor="middle">Feb</text><rect class="hit" x="95.6" y="16" width="59.6" height="214" tabindex="0" data-tip="Feb 2026: 3 of 11 press releases flagged"/><path class="bar-rest" d="M168.0,230.0 v-21.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v21.7 z"/><text class="tick" x="185.0" y="250" text-anchor="middle">Mar</text><rect class="hit" x="155.2" y="16" width="59.6" height="214" tabindex="0" data-tip="Mar 2026: 0 of 6 press releases flagged"/><path class="bar-rest" d="M227.6,210.9 v-15.4 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v15.4 z"/><rect class="bar-flag" x="227.6" y="212.9" width="34.0" height="17.1"/><text class="inbar" x="244.6" y="225.4" text-anchor="middle">4</text><text class="tick" x="244.6" y="250" text-anchor="middle">Apr</text><rect class="hit" x="214.8" y="16" width="59.6" height="214" tabindex="0" data-tip="Apr 2026: 4 of 9 press releases flagged"/><path class="bar-rest" d="M287.2,215.2 v-36.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v36.8 z"/><rect class="bar-flag" x="287.2" y="217.2" width="34.0" height="12.8"/><text class="tick" x="304.2" y="250" text-anchor="middle">May</text><rect class="hit" x="274.4" y="16" width="59.6" height="214" tabindex="0" data-tip="May 2026: 3 of 13 press releases flagged"/><path class="bar-rest" d="M346.8,206.6 v-49.6 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v49.6 z"/><rect class="bar-flag" x="346.8" y="208.6" width="34.0" height="21.4"/><text class="inbar" x="363.8" y="223.3" text-anchor="middle">5</text><text class="tick" x="363.8" y="250" text-anchor="middle">Jun</text><rect class="hit" x="334.0" y="16" width="59.6" height="214" tabindex="0" data-tip="Jun 2026: 5 of 18 press releases flagged"/><path class="bar-rest" d="M406.4,219.4 v-6.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v6.8 z"/><rect class="bar-flag" x="406.4" y="221.4" width="34.0" height="8.6"/><text class="tick" x="423.4" y="250" text-anchor="middle">Jul</text><rect class="hit" x="393.6" y="16" width="59.6" height="214" tabindex="0" data-tip="Jul 2026: 2 of 5 press releases flagged"/><path class="bar-rest" d="M466.0,219.4 v-19.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v19.7 z"/><rect class="bar-flag" x="466.0" y="221.4" width="34.0" height="8.6"/><text class="tick" x="483.0" y="250" text-anchor="middle">Aug</text><rect class="hit" x="453.2" y="16" width="59.6" height="214" tabindex="0" data-tip="Aug 2026: 2 of 8 press releases flagged"/><path class="bar-rest" d="M525.6,223.7 v-66.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v66.8 z"/><rect class="bar-flag" x="525.6" y="225.7" width="34.0" height="4.3"/><text class="tick" x="542.6" y="250" text-anchor="middle">Sep</text><rect class="hit" x="512.8" y="16" width="59.6" height="214" tabindex="0" data-tip="Sep 2026: 1 of 18 press releases flagged"/><path class="bar-rest" d="M585.2,198.0 v-156.6 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v156.6 z"/><rect class="bar-flag" x="585.2" y="200.0" width="34.0" height="30.0"/><text class="inbar" x="602.2" y="219.0" text-anchor="middle">7</text><text class="tick" x="602.2" y="250" text-anchor="middle">Oct</text><rect class="hit" x="572.4" y="16" width="59.6" height="214" tabindex="0" data-tip="Oct 2026: 7 of 45 press releases flagged"/><line class="axis" x1="36" x2="632" y1="230" y2="230"/></svg></div>
+    <div class="chart-scroll"><svg viewBox="0 0 640 260" role="img" aria-labelledby="c2t"><title id="c2t">Mayor's Office press releases scored and flagged in 2026, by month</title><line class="grid" x1="36" x2="632" y1="230.0" y2="230.0"/><text class="tick" x="30" y="234.0" text-anchor="end">0</text><line class="grid" x1="36" x2="632" y1="187.2" y2="187.2"/><text class="tick" x="30" y="191.2" text-anchor="end">10</text><line class="grid" x1="36" x2="632" y1="144.4" y2="144.4"/><text class="tick" x="30" y="148.4" text-anchor="end">20</text><line class="grid" x1="36" x2="632" y1="101.6" y2="101.6"/><text class="tick" x="30" y="105.6" text-anchor="end">30</text><line class="grid" x1="36" x2="632" y1="58.8" y2="58.8"/><text class="tick" x="30" y="62.8" text-anchor="end">40</text><line class="grid" x1="36" x2="632" y1="16.0" y2="16.0"/><text class="tick" x="30" y="20.0" text-anchor="end">50</text><path class="bar-rest grow" d="M48.8,230.0 v-21.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v21.7 z"/><text class="tick" x="65.8" y="250" text-anchor="middle">Jan</text><rect class="hit" x="36.0" y="16" width="59.6" height="214" tabindex="0" data-tip="Jan 2026: 0 of 6 press releases flagged"/><path class="bar-rest grow" d="M108.4,215.2 v-28.2 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v28.2 z"/><rect class="bar-flag grow" x="108.4" y="217.2" width="34.0" height="12.8"/><text class="tick" x="125.4" y="250" text-anchor="middle">Feb</text><rect class="hit" x="95.6" y="16" width="59.6" height="214" tabindex="0" data-tip="Feb 2026: 3 of 11 press releases flagged"/><path class="bar-rest grow" d="M168.0,230.0 v-21.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v21.7 z"/><text class="tick" x="185.0" y="250" text-anchor="middle">Mar</text><rect class="hit" x="155.2" y="16" width="59.6" height="214" tabindex="0" data-tip="Mar 2026: 0 of 6 press releases flagged"/><path class="bar-rest grow" d="M227.6,210.9 v-15.4 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v15.4 z"/><rect class="bar-flag grow" x="227.6" y="212.9" width="34.0" height="17.1"/><text class="inbar" x="244.6" y="225.4" text-anchor="middle">4</text><text class="tick" x="244.6" y="250" text-anchor="middle">Apr</text><rect class="hit" x="214.8" y="16" width="59.6" height="214" tabindex="0" data-tip="Apr 2026: 4 of 9 press releases flagged"/><path class="bar-rest grow" d="M287.2,215.2 v-36.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v36.8 z"/><rect class="bar-flag grow" x="287.2" y="217.2" width="34.0" height="12.8"/><text class="tick" x="304.2" y="250" text-anchor="middle">May</text><rect class="hit" x="274.4" y="16" width="59.6" height="214" tabindex="0" data-tip="May 2026: 3 of 13 press releases flagged"/><path class="bar-rest grow" d="M346.8,206.6 v-49.6 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v49.6 z"/><rect class="bar-flag grow" x="346.8" y="208.6" width="34.0" height="21.4"/><text class="inbar" x="363.8" y="223.3" text-anchor="middle">5</text><text class="tick" x="363.8" y="250" text-anchor="middle">Jun</text><rect class="hit" x="334.0" y="16" width="59.6" height="214" tabindex="0" data-tip="Jun 2026: 5 of 18 press releases flagged"/><path class="bar-rest grow" d="M406.4,219.4 v-6.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v6.8 z"/><rect class="bar-flag grow" x="406.4" y="221.4" width="34.0" height="8.6"/><text class="tick" x="423.4" y="250" text-anchor="middle">Jul</text><rect class="hit" x="393.6" y="16" width="59.6" height="214" tabindex="0" data-tip="Jul 2026: 2 of 5 press releases flagged"/><path class="bar-rest grow" d="M466.0,219.4 v-19.7 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v19.7 z"/><rect class="bar-flag grow" x="466.0" y="221.4" width="34.0" height="8.6"/><text class="tick" x="483.0" y="250" text-anchor="middle">Aug</text><rect class="hit" x="453.2" y="16" width="59.6" height="214" tabindex="0" data-tip="Aug 2026: 2 of 8 press releases flagged"/><path class="bar-rest grow" d="M525.6,223.7 v-66.8 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v66.8 z"/><rect class="bar-flag grow" x="525.6" y="225.7" width="34.0" height="4.3"/><text class="tick" x="542.6" y="250" text-anchor="middle">Sep</text><rect class="hit" x="512.8" y="16" width="59.6" height="214" tabindex="0" data-tip="Sep 2026: 1 of 18 press releases flagged"/><path class="bar-rest grow" d="M585.2,198.0 v-156.6 a4,4 0 0 1 4,-4 h26.0 a4,4 0 0 1 4,4 v156.6 z"/><rect class="bar-flag grow" x="585.2" y="200.0" width="34.0" height="30.0"/><text class="inbar" x="602.2" y="219.0" text-anchor="middle">7</text><text class="tick" x="602.2" y="250" text-anchor="middle">Oct</text><rect class="hit" x="572.4" y="16" width="59.6" height="214" tabindex="0" data-tip="Oct 2026: 7 of 45 press releases flagged"/><line class="axis" x1="36" x2="632" y1="230" y2="230"/></svg></div>
     <details class="tbl"><summary>Show as table</summary><table><tr><th>Month</th><th>Flagged</th><th>Scored</th></tr><tr><td>Jan</td><td>0</td><td>6</td></tr><tr><td>Feb</td><td>3</td><td>11</td></tr><tr><td>Mar</td><td>0</td><td>6</td></tr><tr><td>Apr</td><td>4</td><td>9</td></tr><tr><td>May</td><td>3</td><td>13</td></tr><tr><td>Jun</td><td>5</td><td>18</td></tr><tr><td>Jul</td><td>2</td><td>5</td></tr><tr><td>Aug</td><td>2</td><td>8</td></tr><tr><td>Sep</td><td>1</td><td>18</td></tr><tr><td>Oct</td><td>7</td><td>45</td></tr></table></details>
-  </figure>
-  <figure class="chart">
-    <figcaption><strong>All 47 flagged releases</strong><span>Each dot is one release, placed by the share of its text scored AI. Hollow dots are translations, executive orders or speeches. Select a dot to jump to that release.</span></figcaption>
-    <div class="chart-scroll"><svg viewBox="0 0 640 230" role="img" aria-labelledby="c3t"><title id="c3t">Each flagged release, by share of its text Pangram scored as AI</title><line class="grid" x1="130.0" x2="130.0" y1="10" y2="206"/><text class="tick" x="130.0" y="224" text-anchor="middle">0%</text><line class="grid" x1="253.5" x2="253.5" y1="10" y2="206"/><text class="tick" x="253.5" y="224" text-anchor="middle">25%</text><line class="grid" x1="377.0" x2="377.0" y1="10" y2="206"/><text class="tick" x="377.0" y="224" text-anchor="middle">50%</text><line class="grid" x1="500.5" x2="500.5" y1="10" y2="206"/><text class="tick" x="500.5" y="224" text-anchor="middle">75%</text><line class="grid" x1="624.0" x2="624.0" y1="10" y2="206"/><text class="tick" x="624.0" y="224" text-anchor="middle">100%</text><text class="cat" x="116" y="46.0" text-anchor="end">Mayor's Office</text><a href="#r52" class="dot-link" data-tip="0% AI · Aug 27 · Mayor Mamdani, Governor Hochul Announce $8.4 Million to Transform Concrete Medians into Flood Prevention Infrastructure in Queens"><circle class="hitc" cx="130.4" cy="42.0" r="12"/><circle class="dot" cx="130.4" cy="42.0" r="5"/></a><a href="#r51" class="dot-link" data-tip="7% AI · Apr 9 · Mayor Mamdani Announces 2-K Will Be Full-Day and Full-Year"><circle class="hitc" cx="166.3" cy="42.0" r="12"/><circle class="dot" cx="166.3" cy="42.0" r="5"/></a><a href="#r50" class="dot-link" data-tip="10% AI · Oct 5 · Mayor Mamdani Brings Back Five-Borough Late-Night Soccer Fields Through Coming Year"><circle class="hitc" cx="180.5" cy="42.0" r="12"/><circle class="dot" cx="180.5" cy="42.0" r="5"/></a><a href="#r49" class="dot-link" data-tip="10% AI · Sep 1 · Mayor Mamdani Completes Redesign of ‘Crashland’ in Downtown Brooklyn"><circle class="hitc" cx="180.8" cy="53.0" r="12"/><circle class="dot" cx="180.8" cy="53.0" r="5"/></a><a href="#r45" class="dot-link" data-tip="12% AI · Apr 9 · Mayor Mamdani, Commissioner Levine Announce First-In-The-Nation Municipal “Click to Cancel” Rule to End Subscription Traps"><circle class="hitc" cx="187.5" cy="31.0" r="12"/><circle class="dot" cx="187.5" cy="31.0" r="5"/></a><a href="#r44" class="dot-link" data-tip="12% AI · Feb 24 · Mayor Mamdani Appoints Sideya Sherman as City Planning Director and Chair, Reappoints Eric Enderlin and Edith Hsu-Chen to Housing and Planning Leadership"><circle class="hitc" cx="188.5" cy="64.0" r="12"/><circle class="dot" cx="188.5" cy="64.0" r="5"/></a><a href="#r41" class="dot-link" data-tip="14% AI · Aug 4 · Mayor Mamdani and Governor Hochul Extend 2-K Offers to More Than 2,000 Children, Announce More Than 5,700 Applications Submitted"><circle class="hitc" cx="197.8" cy="42.0" r="12"/><circle class="dot" cx="197.8" cy="42.0" r="5"/></a><a href="#r40" class="dot-link" data-tip="14% AI · Jun 24 · Mayor Mamdani and Whitney Museum Partner to Launch Free Art Activity Guide Citywide During the World Cup"><circle class="hitc" cx="199.7" cy="53.0" r="12"/><circle class="dot" cx="199.7" cy="53.0" r="5"/></a><a href="#r39" class="dot-link" data-tip="14% AI · Jun 29 · Mayor Mamdani Honors 2026 Knicks Championship Team With Temporary Street Co-Namings Across Manhattan"><circle class="hitc" cx="199.8" cy="31.0" r="12"/><circle class="dot" cx="199.8" cy="31.0" r="5"/></a><a href="#r38" class="dot-link" data-tip="15% AI · Oct 20 · Mayor Mamdani Expands Community-Based Violence Prevention to Bushwick, Harlem, and Washington Heights/Inwood"><circle class="hitc" cx="205.7" cy="64.0" r="12"/><circle class="dot" cx="205.7" cy="64.0" r="5"/></a><a href="#r36" class="dot-link" data-tip="16% AI · Apr 21 · Mamdani Administration Announces New Bus Lanes, Infrastructure Upgrades Along Linden Boulevard to Deliver Faster Buses, Safer Streets in Brooklyn High-crash Corridor"><circle class="hitc" cx="207.7" cy="20.0" r="12"/><circle class="dot" cx="207.7" cy="20.0" r="5"/></a><a href="#r35" class="dot-link" data-tip="16% AI · Feb 5 · Mayor Mamdani Launches 2-K and 3-K Request for Information — First Step Towards Universal Child Care"><circle class="hitc" cx="209.5" cy="42.0" r="12"/><circle class="dot" cx="209.5" cy="42.0" r="5"/></a><a href="#r34" class="dot-link" data-tip="16% AI · Jul 7 · Fast Buses, Faster Commutes: Mayor Mamdani Completes Madison and Lexington Avenue Bus Lane Projects Serving More Than 150,000 Daily Riders"><circle class="hitc" cx="211.3" cy="53.0" r="12"/><circle class="dot" cx="211.3" cy="53.0" r="5"/></a><a href="#r31" class="dot-link" data-tip="17% AI · Oct 6 · Transcript: Mayor Mamdani Joins NYPD Commissioner Jessica S. Tisch For A Quarterly Crime Statistics Briefing"><circle class="hitc" cx="213.9" cy="31.0" r="12"/><circle class="dot-caveat" cx="213.9" cy="31.0" r="5"/></a><a href="#r30" class="dot-link" data-tip="18% AI · Oct 14 · Mayor Mamdani Appoints Erin Pilnyak as Director of the Mayor&#x27;s Office of Risk Management and Compliance, Citywide Lead Compliance Officer"><circle class="hitc" cx="220.4" cy="64.0" r="12"/><circle class="dot" cx="220.4" cy="64.0" r="5"/></a><a href="#r29" class="dot-link" data-tip="18% AI · Jun 10 · Mayor Mamdani Cuts Ribbon on Affordable Co-Ops at ANCP Morningside, Highlights Homeownership Agenda in Block by Block Housing Plan"><circle class="hitc" cx="220.4" cy="20.0" r="12"/><circle class="dot" cx="220.4" cy="20.0" r="5"/></a><a href="#r28" class="dot-link" data-tip="19% AI · May 21 · Mayor Mamdani Announces 1,000 Affordable World Cup Tickets for New Yorkers"><circle class="hitc" cx="223.4" cy="42.0" r="12"/><circle class="dot" cx="223.4" cy="42.0" r="5"/></a><a href="#r26" class="dot-link" data-tip="21% AI · Apr 7 · Mayor Mamdani Appoints Delia Awusi as Mom-and-Pop Czar"><circle class="hitc" cx="231.8" cy="53.0" r="12"/><circle class="dot" cx="231.8" cy="53.0" r="5"/></a><a href="#r25" class="dot-link" data-tip="21% AI · Jul 23 · COGE Releases 5 Ballot Proposals and Final Report to Make Government Work Better for New Yorkers"><circle class="hitc" cx="235.5" cy="42.0" r="12"/><circle class="dot" cx="235.5" cy="42.0" r="5"/></a><a href="#r24" class="dot-link" data-tip="22% AI · Jun 12 · Mayor Mamdani Appoints Siddhartha Sanchez as Executive Director of Mayor&#x27;s Office of Food Policy"><circle class="hitc" cx="239.1" cy="31.0" r="12"/><circle class="dot" cx="239.1" cy="31.0" r="5"/></a><a href="#r23" class="dot-link" data-tip="23% AI · Oct 16 · Mayor Mamdani Leads More Than 100 Elected Officials in Calling on Parking Garage Owners and Operators to Keep ICE Off Their Property"><circle class="hitc" cx="242.8" cy="64.0" r="12"/><circle class="dot" cx="242.8" cy="64.0" r="5"/></a><a href="#r22" class="dot-link" data-tip="23% AI · Oct 15 · Mayor Mamdani, New York City Council, the Mayor’s Office of Animal Welfare and the Department of Social Services Announce City-Funded Pantries to Start Offering Free Pet Food at 22 City Pantries to Keep Pets with the Families Who Love Them"><circle class="hitc" cx="245.2" cy="53.0" r="12"/><circle class="dot" cx="245.2" cy="53.0" r="5"/></a><a href="#r21" class="dot-link" data-tip="25% AI · Jun 1 · ICYMI: Mayor Mamdani Celebrates More Than 1,300 Low-Income New Yorkers Connected to Union and Prevailing Wage Jobs through PINCC Program"><circle class="hitc" cx="255.8" cy="42.0" r="12"/><circle class="dot" cx="255.8" cy="42.0" r="5"/></a><a href="#r4" class="dot-link" data-tip="26% AI · Oct 19 · Mayor Mamdani Announces New Appointees for Civilian Complaint Review Board"><circle class="hitc" cx="257.6" cy="53.0" r="12"/><circle class="dot" cx="257.6" cy="53.0" r="5"/></a><a href="#r20" class="dot-link" data-tip="28% AI · May 15 · Mayor Mamdani Baselines $31.7 Million for New York City&#x27;s Public Libraries"><circle class="hitc" cx="267.3" cy="42.0" r="12"/><circle class="dot" cx="267.3" cy="42.0" r="5"/></a><a href="#r18" class="dot-link" data-tip="30% AI · Sep 8 · La Ciudad abre por primera vez sus archivos del 11 de septiembre y pone fin a una batalla legal de años"><circle class="hitc" cx="277.3" cy="53.0" r="12"/><circle class="dot-caveat" cx="277.3" cy="53.0" r="5"/></a><a href="#r17" class="dot-link" data-tip="31% AI · Feb 4 · Mayor Mamdani Rolls Out LinkNYC PSA Urging Homeless New Yorkers to Come Indoors"><circle class="hitc" cx="285.1" cy="42.0" r="12"/><circle class="dot" cx="285.1" cy="42.0" r="5"/></a><a href="#r16" class="dot-link" data-tip="31% AI · May 7 · Mayor Mamdani Invests $12 Million To Expand Peer-Led Substance-Use Recovery Services Across New York City"><circle class="hitc" cx="285.5" cy="31.0" r="12"/><circle class="dot" cx="285.5" cy="31.0" r="5"/></a><a href="#r15" class="dot-link" data-tip="34% AI · Sep 4 · Executive Order No. 21"><circle class="hitc" cx="297.2" cy="42.0" r="12"/><circle class="dot-caveat" cx="297.2" cy="42.0" r="5"/></a><a href="#r14" class="dot-link" data-tip="54% AI · Sep 4 · El alcalde Mamdani declara el 11 de septiembre Día de Conmemoración y Servicio y refuerza la preparación de la ciudad ante emergencias"><circle class="hitc" cx="394.9" cy="42.0" r="12"/><circle class="dot-caveat" cx="394.9" cy="42.0" r="5"/></a><a href="#r13" class="dot-link" data-tip="61% AI · Oct 20 · El alcalde Mamdani amplía la prevención comunitaria de la violencia a Bushwick, Harlem y Washington Heights/Inwood"><circle class="hitc" cx="433.1" cy="42.0" r="12"/><circle class="dot-caveat" cx="433.1" cy="42.0" r="5"/></a><a href="#r12" class="dot-link" data-tip="63% AI · Sep 4 · Executive Order No. 22"><circle class="hitc" cx="438.9" cy="53.0" r="12"/><circle class="dot-caveat" cx="438.9" cy="53.0" r="5"/></a><a href="#r11" class="dot-link" data-tip="70% AI · Sep 7 · Mamdani crea una oficina para que los trabajadores de Nueva York se organicen, la primera de su tipo en el país"><circle class="hitc" cx="476.1" cy="42.0" r="12"/><circle class="dot-caveat" cx="476.1" cy="42.0" r="5"/></a><a href="#r10" class="dot-link" data-tip="74% AI · Jul 7 · Mayor Mamdani Launches &quot;El Chisme Oficial de NYC&quot; to Connect Directly with Spanish-Speaking New Yorkers"><circle class="hitc" cx="494.5" cy="42.0" r="12"/><circle class="dot-caveat" cx="494.5" cy="42.0" r="5"/></a><a href="#r1" class="dot-link" data-tip="100% AI · Oct 15 · Statement From Mayor Mamdani on Federal Court Dismissal of Lawsuit Against New York City’s Sanctuary Laws"><circle class="hitc" cx="624.0" cy="42.0" r="12"/><circle class="dot" cx="624.0" cy="42.0" r="5"/></a><text class="cat" x="116" y="110.0" text-anchor="end">DOT</text><a href="#r48" class="dot-link" data-tip="11% AI · Apr 15 · NYC DOT Proposes Protected Bike Lane for 72nd Street in Manhattan"><circle class="hitc" cx="182.3" cy="106.0" r="12"/><circle class="dot" cx="182.3" cy="106.0" r="5"/></a><a href="#r46" class="dot-link" data-tip="11% AI · Jun 16 · Community-Inspired Artwork Helps Transform McGuinness Boulevard Into a Safer, More Welcoming Street"><circle class="hitc" cx="184.8" cy="117.0" r="12"/><circle class="dot" cx="184.8" cy="117.0" r="5"/></a><a href="#r43" class="dot-link" data-tip="12% AI · Jun 29 · NYC DOT Starts Construction to Deliver Permanent Upgrades to Manhattan&#x27;s Avenue B Open Street, With New Pedestrian Space and Bike Connections"><circle class="hitc" cx="189.6" cy="95.0" r="12"/><circle class="dot" cx="189.6" cy="95.0" r="5"/></a><a href="#r37" class="dot-link" data-tip="15% AI · May 21 · NYC DOT, Bike New York, Staten Island FerryHawks, and NYPD Partner to Donate Bikes to Underserved Communities"><circle class="hitc" cx="205.8" cy="106.0" r="12"/><circle class="dot" cx="205.8" cy="106.0" r="5"/></a><a href="#r33" class="dot-link" data-tip="17% AI · Aug 11 · Former New York City Traffic Commissioner Sam Schwartz, Aka &#x27;Gridlock Sam,&#x27; Joins NYC DOT Commissioner Mike Flynn on Latest Episode of Curb Enthusiasm Podcast"><circle class="hitc" cx="212.5" cy="117.0" r="12"/><circle class="dot" cx="212.5" cy="117.0" r="5"/></a><a href="#r27" class="dot-link" data-tip="19% AI · Aug 4 · NYC DOT Launches Expansion of Curbside Electric Vehicle Charging Across Five Boroughs, Solicits Public Feedback on Locations"><circle class="hitc" cx="226.3" cy="106.0" r="12"/><circle class="dot" cx="226.3" cy="106.0" r="5"/></a><a href="#r19" class="dot-link" data-tip="28% AI · Apr 21 · NYC DOT Urges Drivers to Slow Down in Work Zones as Construction Season Begins"><circle class="hitc" cx="270.1" cy="106.0" r="12"/><circle class="dot" cx="270.1" cy="106.0" r="5"/></a><a href="#r2" class="dot-link" data-tip="43% AI · Jun 2 · NYC DOT to Use New Cutting-Edge Sensors to Better Understand How New Yorkers Use Their Streets and to Inform Safer Street Design"><circle class="hitc" cx="342.8" cy="106.0" r="12"/><circle class="dot" cx="342.8" cy="106.0" r="5"/></a><text class="cat" x="116" y="174.0" text-anchor="end">Cultural Affairs</text><a href="#r47" class="dot-link" data-tip="11% AI · Apr 16 · At Willets Point, DCLA, EDC, and QDG 600-Foot Public Art Installation Highlighting Immigrant Stories by Venazir Martinez"><circle class="hitc" cx="184.3" cy="170.0" r="12"/><circle class="dot" cx="184.3" cy="170.0" r="5"/></a><a href="#r42" class="dot-link" data-tip="13% AI · Jul 16 · DCLA, ACS, and the Center for Art and Advocacy Present the Youth Art Space, Youth Artwork Curated by PAIR Immanuel Oni"><circle class="hitc" cx="193.9" cy="181.0" r="12"/><circle class="dot" cx="193.9" cy="181.0" r="5"/></a><a href="#r32" class="dot-link" data-tip="17% AI · Jul 9 · DCLA and MOERJ Announce New Public Artwork at Marcus Garvey Park, &quot;From Root to Bloom&quot; by Artist Singha Hon (PAIR)"><circle class="hitc" cx="213.0" cy="170.0" r="12"/><circle class="dot" cx="213.0" cy="170.0" r="5"/></a><a href="#r3" class="dot-link" data-tip="33% AI · May 19 · NYC Department of Cultural Affairs Releases Artist Proposals for a Permanent, Public Artwork Honoring Billie Holiday"><circle class="hitc" cx="292.7" cy="170.0" r="12"/><circle class="dot" cx="292.7" cy="170.0" r="5"/></a></svg></div>
   </figure>
 </section>
 <section class="group viz" id="explore">
   <h2>Explore the data</h2>
 
-  <figure class="chart">
-    <figcaption><strong>Every release Pangram scored</strong><span>Each dot is one release, placed by date and by the share of its text scored AI. Red dots are releases Pangram flagged. In 2022, before ChatGPT, every release sits at the bottom. Select a red dot to jump to that release, or any other dot to open it on nyc.gov.</span></figcaption>
+  <figure class="chart" id="fig-tl">
+    <figcaption><strong>Every release Pangram scored, filed by date</strong><span>Each sheet is one release, placed by its publication date and by the share of its text scored AI. Highlighted sheets were flagged. In 2022, before ChatGPT, every sheet stays on the floor. Select a highlighted sheet to jump to that release, or any other sheet to open it on nyc.gov.</span></figcaption>
     <div class="filters" role="group" aria-label="Timeline agency filter">
       <button type="button" class="chip tl-chip" id="tl-all" aria-pressed="true" data-agency="all">All agencies</button>
       <button type="button" class="chip tl-chip" id="tl-mayor" aria-pressed="false" data-agency="mayor">Mayor's Office</button>
@@ -177,22 +206,23 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
       <button type="button" class="chip tl-chip" id="tl-dcla" aria-pressed="false" data-agency="dcla">Cultural Affairs</button>
       <label class="toggle"><input type="checkbox" id="tl-caveat"> Hide translations, executive orders and speeches</label>
     </div>
-    <div class="legend"><span><i class="sw bar-flag"></i>Flagged</span><span><i class="sw bar-rest"></i>Not flagged</span><span class="tl-count" id="tl-count"></span></div>
+    <div class="legend"><span><i class="sw bar-flag"></i>Flagged</span><span><i class="sw sheet-sw"></i>Not flagged</span><span class="tl-count" id="tl-count"></span></div>
     <div class="chart-scroll"><svg id="tl-svg" role="img" aria-label="Timeline of scored releases by share of text scored AI"></svg></div>
   </figure>
 
-  <figure class="chart">
-    <figcaption><strong>Where the flagged text sits inside each release</strong><span>Each row is one of the 47 flagged releases, laid out from first word to last. Red segments are passages Pangram labeled AI. Darker red means higher confidence. Hover over a segment to read its opening words.</span></figcaption>
+  <figure class="chart" id="fig-an">
+    <figcaption><strong>The 47 flagged releases, marked up</strong><span>Each page is one flagged release, with its text running from the top line to the bottom. Pangram's AI-labeled passages are swiped with a highlighter. Darker means higher confidence. Hover over a highlight to read the passage's opening words, or select a page to jump to it.</span></figcaption>
     <div class="filters" role="group" aria-label="Sort flagged releases">
       <button type="button" class="chip an-chip" id="an-ai" aria-pressed="true" data-sort="ai">Most AI first</button>
       <button type="button" class="chip an-chip" id="an-agency" aria-pressed="false" data-sort="agency">Group by agency</button>
+      <button type="button" class="chip" id="an-replay">Replay</button>
     </div>
-    <div class="legend"><span><i class="sw seg-h2"></i>AI, high</span><span><i class="sw seg-m2"></i>AI, medium</span><span><i class="sw seg-l2"></i>AI, low</span><span><i class="sw bar-rest"></i>Human-written</span></div>
-    <div class="chart-scroll"><svg id="an-svg" role="img" aria-label="Passage layout of each flagged release"></svg></div>
+    <div class="legend"><span><i class="sw seg-h2"></i>AI, high</span><span><i class="sw seg-m2"></i>AI, medium</span><span><i class="sw seg-l2"></i>AI, low</span><span><i class="sw sheet-line"></i>Human-written text</span></div>
+    <div class="chart-scroll"><svg id="an-svg" role="img" aria-label="Pages of each flagged release with AI passages highlighted"></svg></div>
   </figure>
 
-  <figure class="chart">
-    <figcaption><strong>The usual AI buzzwords don't explain it</strong><span>How often words commonly linked to AI writing appear in Mayor's Office press releases, per 10,000 words. That covers 157 releases from 2022 (207,566 words) and 452 from 2026 (488,966 words), including releases Pangram never scored. Most of these words were more common before ChatGPT. Pangram is picking up something other than vocabulary. Select a word to see it in use.</span></figcaption>
+  <figure class="chart" id="fig-bz">
+    <figcaption><strong>The usual AI buzzwords don't explain it</strong><span>How often words commonly linked to AI writing appear in Mayor's Office press releases, per 10,000 words. That covers 157 releases from 2022 (207,566 words) and 452 from 2026 (488,966 words), including releases Pangram never scored. Each word slides from its 2022 rate to its 2026 rate. Most moved down. Pangram is picking up something other than vocabulary. Select a word to see it in use.</span></figcaption>
     <div class="legend"><span><i class="sw dot-22"></i>2022</span><span><i class="sw bar-flag"></i>2026</span></div>
     <div class="chart-scroll"><svg id="bz-svg" role="img" aria-label="Buzzword rates in 2022 and 2026"></svg></div>
     <div class="bz-detail" id="bz-detail" aria-live="polite"></div>
@@ -1123,6 +1153,8 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
 (function () {
   var D = JSON.parse(document.getElementById("explore-data").textContent);
   var NS = "http://www.w3.org/2000/svg";
+  var REDUCE = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var EASE = "cubic-bezier(.2,.7,.2,1)";
   function el(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -1138,17 +1170,104 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
   var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   function fmtDate(s) { var p = s.split("-"); return MON[+p[1]-1] + " " + (+p[2]) + ", " + p[0]; }
   function go(a, url) {
-    if (a) { var c = document.getElementById(a); if (c) { c.hidden = false; c.scrollIntoView({behavior: "smooth", block: "start"}); } }
-    else window.open(url, "_blank", "noopener");
+    if (a) { var c = document.getElementById(a); if (c) { c.hidden = false; c.scrollIntoView({behavior: REDUCE ? "auto" : "smooth", block: "start"}); } }
+    else if (url) window.open(url, "_blank", "noopener");
+  }
+  function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 9973; return h; }
+  // Everything is drawn in its final state first, so the page reads correctly with no
+  // animation at all. The animations only replay that state once a figure scrolls into view.
+  function anim(node, frames, opts) {
+    if (REDUCE || !node.animate) return;
+    opts.fill = "backwards"; opts.easing = opts.easing || EASE;
+    node.animate(frames, opts);
+  }
+  function onView(id, fn) {
+    var fig = document.getElementById(id);
+    if (REDUCE || !fig || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); fn(); } });
+    }, {threshold: 0.15});
+    io.observe(fig);
+  }
+  // A small sheet of paper with a folded corner and three lines of "text".
+  function sheet(parent, x, y, w, h, flagged, caveat) {
+    var c = Math.max(3, w * 0.28);
+    var g = el("g", {"class": "sheet" + (flagged ? " is-flag" : "") + (caveat ? " is-caveat" : "")}, parent);
+    el("path", {d: "M" + x + "," + y + "h" + (w - c) + "l" + c + "," + c + "v" + (h - c) + "h" + (-w) + "z", "class": "sheet-paper"}, g);
+    el("path", {d: "M" + (x + w - c) + "," + y + "v" + c + "h" + c, "class": "sheet-fold"}, g);
+    var hl = [];
+    if (h >= 12) {
+      [0.42, 0.6, 0.78].forEach(function (f, i) {
+        var lw = (w - 4) * (i === 2 ? 0.6 : 0.85), ly = y + h * f;
+        if (flagged) hl.push(el("rect", {x: x + 1.5, y: ly - 1.6, width: lw + 1, height: 3.2, rx: 1, "class": "sheet-hl"}, g));
+        el("line", {x1: x + 2, x2: x + 2 + lw, y1: ly, y2: ly, "class": "sheet-text"}, g);
+      });
+    }
+    return {g: g, hl: hl};
+  }
+
+  // Sheet wall ---------------------------------------------------------
+  var pwSvg = document.getElementById("pw-svg");
+  var pwSheets = [];
+  function drawWall() {
+    clear(pwSvg); pwSheets = [];
+    var groups = [
+      {s: "mayor", y: "2022", label: "Mayor's Office, 2022", sub: "Jan–Nov, before ChatGPT"},
+      {s: "mayor", y: "2026", label: "Mayor's Office, 2026", sub: ""},
+      {s: "dot", y: "2026", label: "DOT, 2026", sub: ""},
+      {s: "dcla", y: "2026", label: "Cultural Affairs, 2026", sub: ""}
+    ];
+    var W = 720, left = 168, cols = 26, sw = 13, sh = 17, gx = 5, gy = 6, top = 6, gapG = 26;
+    var y = top;
+    groups.forEach(function (gr) {
+      var items = D.points.filter(function (d) { return d.s === gr.s && d.d.slice(0, 4) === gr.y && !d.k; });
+      items.sort(function (a, b) { return b.f - a.f || a.d.localeCompare(b.d); });
+      var flagged = items.filter(function (d) { return d.f; }).length;
+      txt(pwSvg, left - 14, y + 14, gr.label, "cat", "end");
+      if (gr.sub) txt(pwSvg, left - 14, y + 31, gr.sub, "sub", "end");
+      var share = items.length ? flagged / items.length : 0;
+      var t = txt(pwSvg, left - 14, y + (gr.sub ? 52 : 34), pct(share) + " flagged", "val", "end");
+      t.appendChild(document.createTextNode(""));
+      txt(pwSvg, left - 14, y + (gr.sub ? 68 : 50), flagged + " of " + items.length, "sub", "end");
+      items.forEach(function (d, i) {
+        var cx = left + (i % cols) * (sw + gx), cy = y + Math.floor(i / cols) * (sh + gy);
+        var a = el("a", {href: d.a ? "#" + d.a : d.u, "class": "sheet-link",
+          "data-tip": (d.f ? "Flagged · " + pct(d.ai) + " AI · " : "Not flagged · ") + fmtDate(d.d) + " · " + d.t}, pwSvg);
+        if (!d.a) { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
+        else a.addEventListener("click", function (e) { e.preventDefault(); go(d.a); });
+        var s = sheet(a, cx, cy, sw, sh, d.f, false);
+        pwSheets.push({s: s, i: i, f: d.f});
+      });
+      var rows = Math.ceil(items.length / cols);
+      y += Math.max(rows * (sh + gy), gr.sub ? 74 : 56) + gapG;
+    });
+    pwSvg.setAttribute("viewBox", "0 0 " + W + " " + (y - gapG + 6));
+  }
+  function animateWall() {
+    pwSheets.forEach(function (p) {
+      var d = Math.min(p.i * 9, 1400);
+      anim(p.s.g, [{opacity: 0, transform: "translateY(-14px) rotate(-6deg)"}, {opacity: 1, transform: "none"}], {duration: 420, delay: d});
+      p.s.hl.forEach(function (r, k) {
+        anim(r, [{transform: "scaleX(0)"}, {transform: "scaleX(1)"}], {duration: 260, delay: 1500 + d * 0.4 + k * 140, easing: "ease-out"});
+      });
+    });
+  }
+
+  // Month bars ---------------------------------------------------------
+  function animateMonths() {
+    document.querySelectorAll("#fig-month .grow").forEach(function (b, i) {
+      anim(b, [{transform: "scaleY(0)"}, {transform: "scaleY(1)"}], {duration: 650, delay: Math.floor(i / 2) * 70 + (b.classList.contains("bar-flag") ? 0 : 120)});
+    });
   }
 
   // Timeline -----------------------------------------------------------
   var tlAgency = "all";
   var tlSvg = document.getElementById("tl-svg");
   var tlHide = document.getElementById("tl-caveat");
+  var tlSheets = [];
   function drawTimeline() {
-    clear(tlSvg);
-    var W = 720, H = 300, top = 14, bottom = 40, left = 44, gap = 28;
+    clear(tlSvg); tlSheets = [];
+    var W = 720, H = 330, top = 26, bottom = 42, left = 44, gap = 28;
     tlSvg.setAttribute("viewBox", "0 0 " + W + " " + H);
     var plotH = H - top - bottom;
     var panels = [
@@ -1163,14 +1282,12 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
     });
     var shown = 0, flagged = 0;
     panels.forEach(function (p, i) {
-      var x0 = left + i * (pw + gap);
+      var x0 = left + i * (pw + gap), span = p.to - p.from;
       txt(tlSvg, x0, H - 6, p.label, "sub");
-      var span = p.to - p.from;
       for (var m = 0; m < 12; m++) {
         var dt = Date.UTC(p.yr, m, 1);
         if (dt >= p.to) break;
-        var x = x0 + pw * (dt - p.from) / span;
-        if (m % 2 === 0) txt(tlSvg, x + 2, H - 24, MON[m], "tick", "start");
+        if (m % 2 === 0) txt(tlSvg, x0 + pw * (dt - p.from) / span + 2, H - 24, MON[m], "tick", "start");
       }
       el("line", {x1: x0, x2: x0 + pw, y1: top + plotH, y2: top + plotH, "class": "axis"}, tlSvg);
       var pts = D.points.filter(function (d) {
@@ -1180,76 +1297,111 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
       pts.forEach(function (d) {
         shown++; flagged += d.f;
         var x = x0 + pw * (Date.parse(d.d) - p.from) / span;
-        // Releases near 0% would pile into one line, so spread them through a thin band.
-        var h = 0; for (var c = 0; c < d.u.length; c++) h = (h * 31 + d.u.charCodeAt(c)) % 9973;
-        var jitter = d.ai < 0.02 ? h % 9 : 0;
-        var y = top + plotH - plotH * d.ai - 4 - jitter;
-        var g = el("a", {href: d.a ? "#" + d.a : d.u, "class": "dot-link", "data-tip":
-          (d.f ? "Flagged · " : "") + pct(d.ai) + " AI · " + fmtDate(d.d) + " · " + d.t}, tlSvg);
-        if (!d.a) { g.setAttribute("target", "_blank"); g.setAttribute("rel", "noopener"); }
-        el("circle", {cx: x, cy: y, r: 10, "class": "hitc"}, g);
-        el("circle", {cx: x, cy: y, r: d.f ? 4.5 : 3, "class": d.f ? (d.k ? "dot-caveat" : "dot") : "dot-rest"}, g);
-        if (d.a) g.addEventListener("click", function (e) { e.preventDefault(); go(d.a); });
+        var jitter = d.ai < 0.02 ? hash(d.u) % 10 : 0;
+        var w = d.f ? 8 : 5, h = d.f ? 10 : 6.5;
+        var y = top + plotH - plotH * d.ai - h - 1 - jitter;
+        var a = el("a", {href: d.a ? "#" + d.a : d.u, "class": "sheet-link",
+          "data-tip": (d.f ? "Flagged · " : "") + pct(d.ai) + " AI · " + fmtDate(d.d) + " · " + d.t}, tlSvg);
+        if (!d.a) { a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
+        else a.addEventListener("click", function (e) { e.preventDefault(); go(d.a); });
+        el("rect", {x: x - 10, y: y - 8, width: w + 20, height: h + 16, "class": "hitc"}, a);
+        var s = sheet(a, x - w / 2, y, w, h, d.f, d.k);
+        tlSheets.push({s: s, x: x, f: d.f, lift: top + plotH - y - h});
       });
     });
     document.getElementById("tl-count").textContent = shown + " releases shown, " + flagged + " flagged";
+  }
+  function animateTimeline() {
+    tlSheets.forEach(function (p) {
+      var d = (p.x - 44) * 2.2;
+      if (p.f) {
+        // Flagged sheets start on the floor with the rest, then rise to their score.
+        anim(p.s.g, [{opacity: 0, transform: "translateY(" + p.lift + "px)"}, {opacity: 1, offset: 0.2, transform: "translateY(" + p.lift + "px)"}, {opacity: 1, transform: "none"}], {duration: 1300, delay: 300 + d});
+      } else {
+        anim(p.s.g, [{opacity: 0, transform: "translateY(-10px)"}, {opacity: 1, transform: "none"}], {duration: 380, delay: d});
+      }
+    });
   }
   document.querySelectorAll(".tl-chip").forEach(function (b) {
     b.addEventListener("click", function () {
       tlAgency = b.dataset.agency;
       document.querySelectorAll(".tl-chip").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
-      drawTimeline();
+      drawTimeline(); animateTimeline();
     });
   });
-  tlHide.addEventListener("change", drawTimeline);
+  tlHide.addEventListener("change", function () { drawTimeline(); animateTimeline(); });
 
-  // Anatomy ------------------------------------------------------------
+  // Marked-up pages ----------------------------------------------------
   var anSort = "ai";
   var anSvg = document.getElementById("an-svg");
+  var anMarks = [];
   var AG = {mayor: "Mayor's Office", dot: "DOT", dcla: "Cultural Affairs"};
   function drawAnatomy() {
-    clear(anSvg);
+    clear(anSvg); anMarks = [];
     var rows = D.anatomy.slice();
     if (anSort === "agency") {
       var order = {mayor: 0, dot: 1, dcla: 2};
       rows.sort(function (a, b) { return order[a.s] - order[b.s] || b.ai - a.ai; });
     }
-    var W = 720, rowH = 18, left = 250, right = 44, top = 4;
-    var H = top + rows.length * rowH + 6;
+    var W = 720, cols = 8, pw = 74, ph = 96, gx = (W - cols * pw) / (cols - 1), gy = 40, nLines = 12;
+    var H = Math.ceil(rows.length / cols) * (ph + gy);
     anSvg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    var pw = W - left - right;
     rows.forEach(function (r, i) {
-      var y = top + i * rowH;
-      var label = r.t.length > 36 ? r.t.slice(0, 35) + "…" : r.t;
-      var a = el("a", {href: "#" + r.a, "class": "an-row"}, anSvg);
+      var x = (i % cols) * (pw + gx), y = Math.floor(i / cols) * (ph + gy);
+      var a = el("a", {href: "#" + r.a, "class": "page-link", "data-tip": pct(r.ai) + " AI · " + AG[r.s] + " · " + r.t}, anSvg);
       a.addEventListener("click", function (e) { e.preventDefault(); go(r.a); });
-      txt(a, left - 8, y + 12, label, "an-label", "end");
-      var x = left;
+      var c = 14;
+      el("path", {d: "M" + x + "," + y + "h" + (pw - c) + "l" + c + "," + c + "v" + (ph - c) + "h" + (-pw) + "z", "class": "page-paper"}, a);
+      el("path", {d: "M" + (x + pw - c) + "," + y + "v" + c + "h" + c, "class": "sheet-fold"}, a);
+      el("rect", {x: x + 7, y: y + 8, width: pw - 30, height: 4, rx: 1, "class": "page-head"}, a);
+      var lx = x + 7, lw = pw - 14, l0 = y + 22, lh = (ph - 28) / nLines;
+      for (var L = 0; L < nLines; L++) {
+        var w = L === nLines - 1 ? lw * 0.55 : lw;
+        el("line", {x1: lx, x2: lx + w, y1: l0 + L * lh, y2: l0 + L * lh, "class": "page-text"}, a);
+      }
+      // Lay the passages end to end along the lines, then highlight the AI ones.
+      var total = nLines - 0.45, pos = 0;
       r.g.forEach(function (s) {
-        var w = Math.max(pw * s[0], 0.8);
-        var cls = {x: "seg-rest", h: "seg-h2", m: "seg-m2", l: "seg-l2"}[s[1]];
-        var lab = s[1] === "x" ? "Human-written" : "AI, " + {h: "high", m: "medium", l: "low"}[s[1]] + " confidence";
-        el("rect", {x: x, y: y + 2, width: Math.max(w - 1, 0.5), height: rowH - 5, "class": cls,
-          "data-tip": lab + " · " + s[2] + (s[2].length >= 180 ? "…" : "")}, a);
-        x += w;
+        var start = pos, end = pos + s[0] * total; pos = end;
+        if (s[1] === "x") return;
+        var cls = {h: "seg-h2", m: "seg-m2", l: "seg-l2"}[s[1]];
+        var tip = "AI, " + {h: "high", m: "medium", l: "low"}[s[1]] + " confidence · " + s[2] + (s[2].length >= 180 ? "…" : "");
+        var p = start;
+        while (p < end - 0.001) {
+          var line = Math.floor(p), seg = Math.min(end, line + 1) - p;
+          var hx = lx + (p - line) * lw, hy = l0 + line * lh - 2.8;
+          var m = el("rect", {x: hx - 0.5, y: hy, width: Math.max(seg * lw + 1, 1.2), height: 5.6, rx: 1.4, "class": "hl " + cls, "data-tip": tip}, a);
+          anMarks.push({m: m, t: i, p: p});
+          p += seg;
+        }
       });
-      txt(a, W - right + 6, y + 12, pct(r.ai), "an-val");
+      txt(a, x, y + ph + 15, pct(r.ai) + " AI", "page-val");
+      txt(a, x, y + ph + 29, AG[r.s], "page-sub");
+    });
+  }
+  function animateAnatomy() {
+    anMarks.forEach(function (o) {
+      anim(o.m, [{transform: "scaleX(0)"}, {transform: "scaleX(1)"}], {duration: 220, delay: 200 + o.t * 45 + o.p * 120, easing: "ease-out"});
+    });
+    anSvg.querySelectorAll(".page-paper").forEach(function (pg, i) {
+      anim(pg.parentNode, [{opacity: 0, transform: "translateY(10px)"}, {opacity: 1, transform: "none"}], {duration: 400, delay: i * 30});
     });
   }
   document.querySelectorAll(".an-chip").forEach(function (b) {
     b.addEventListener("click", function () {
       anSort = b.dataset.sort;
       document.querySelectorAll(".an-chip").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
-      drawAnatomy();
+      drawAnatomy(); animateAnatomy();
     });
   });
+  document.getElementById("an-replay").addEventListener("click", function () { drawAnatomy(); animateAnatomy(); });
 
   // Buzzwords ----------------------------------------------------------
   var bzSvg = document.getElementById("bz-svg");
-  var bzSel = null;
+  var bzSel = null, bzRows = [];
   function drawBuzz() {
-    clear(bzSvg);
-    var rows = D.buzz, W = 720, rowH = 30, left = 130, right = 70, top = 10, bottom = 26;
+    clear(bzSvg); bzRows = [];
+    var rows = D.buzz, W = 720, rowH = 30, left = 140, right = 92, top = 10, bottom = 26;
     var H = top + rows.length * rowH + bottom;
     bzSvg.setAttribute("viewBox", "0 0 " + W + " " + H);
     var max = Math.max.apply(null, rows.map(function (r) { return Math.max(r.a, r.b); }));
@@ -1267,16 +1419,24 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
         "aria-pressed": bzSel === r.w ? "true" : "false",
         "data-tip": "“" + r.w + "”: " + r.a + " per 10,000 words in 2022, " + r.b + " in 2026"}, bzSvg);
       el("rect", {x: 0, y: y - rowH / 2, width: W, height: rowH, "class": "hit"}, g);
-      txt(g, left - 12, y + 4, r.w, "cat", "end");
-      el("line", {x1: Math.min(xa, xb), x2: Math.max(xa, xb), y1: y, y2: y, "class": "bz-link"}, g);
+      txt(g, left - 12, y + 4, r.w, "bz-word", "end");
+      var ln = el("line", {x1: xa, x2: xb, y1: y, y2: y, "class": "bz-link"}, g);
       el("circle", {cx: xa, cy: y, r: 6, "class": "dot-22"}, g);
-      el("circle", {cx: xb, cy: y, r: 6, "class": "dot"}, g);
+      var dot = el("circle", {cx: xb, cy: y, r: 6, "class": "dot"}, g);
       var ratio = r.a ? r.b / r.a : null;
-      var note = ratio === null ? "new in 2026" : "×" + ratio.toFixed(1);
-      txt(g, W - right + 10, y + 4, note, ratio !== null && ratio >= 1.5 ? "val" : "sub");
+      var up = ratio !== null && ratio >= 1;
+      txt(g, W - right + 12, y + 4, ratio === null ? "new" : (up ? "▲ " : "▼ ") + "×" + ratio.toFixed(1), up && ratio >= 1.5 ? "val" : "sub");
+      bzRows.push({ln: ln, dot: dot, dx: xa - xb, len: Math.abs(xb - xa), i: i});
       function pick() { bzSel = r.w; drawBuzz(); showBuzz(r); }
       g.addEventListener("click", pick);
       g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    });
+  }
+  function animateBuzz() {
+    bzRows.forEach(function (o) {
+      var d = 200 + o.i * 80;
+      anim(o.dot, [{transform: "translateX(" + o.dx + "px)"}, {transform: "none"}], {duration: 900, delay: d});
+      anim(o.ln, [{strokeDasharray: o.len + " " + o.len, strokeDashoffset: o.len}, {strokeDasharray: o.len + " " + o.len, strokeDashoffset: 0}], {duration: 900, delay: d});
     });
   }
   function showBuzz(r) {
@@ -1288,16 +1448,29 @@ summary { cursor:pointer; font-weight:500; font-size:14px; }
     ["2022", "2026"].forEach(function (y) {
       var ex = r.ex[y]; if (!ex) return;
       var q = document.createElement("blockquote"); q.className = y === "2022" ? "q22" : "";
-      var s = document.createElement("span"); s.textContent = ex.s; q.appendChild(s);
+      var s = document.createElement("span");
+      // Mark the word itself, the way a copy editor would.
+      var re = new RegExp("(" + r.w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\w*)", "i");
+      ex.s.split(re).forEach(function (part, k) {
+        if (k % 2) { var mk = document.createElement("mark"); mk.textContent = part; s.appendChild(mk); }
+        else s.appendChild(document.createTextNode(part));
+      });
+      q.appendChild(s);
       var c = document.createElement("cite");
       var a = document.createElement("a"); a.href = ex.u; a.target = "_blank"; a.rel = "noopener";
       a.textContent = y + ": " + ex.t; c.appendChild(a); q.appendChild(c);
       box.appendChild(q);
+      anim(q, [{opacity: 0, transform: "translateY(6px)"}, {opacity: 1, transform: "none"}], {duration: 300, delay: y === "2026" ? 80 : 0});
     });
   }
 
-  drawTimeline(); drawAnatomy(); drawBuzz();
-  var first = D.buzz[0]; bzSel = first.w; drawBuzz(); showBuzz(first);
+  drawWall(); drawTimeline(); drawAnatomy();
+  bzSel = D.buzz[0].w; drawBuzz(); showBuzz(D.buzz[0]);
+  onView("fig-wall", animateWall);
+  onView("fig-month", animateMonths);
+  onView("fig-tl", animateTimeline);
+  onView("fig-an", animateAnatomy);
+  onView("fig-bz", animateBuzz);
 })();
 
 </script>
